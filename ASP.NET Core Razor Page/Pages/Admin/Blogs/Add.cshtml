@@ -12,39 +12,39 @@
     <form method="post">
         <div class="mb-3">
             <label for="heading" class="form-label">Heading</label>
-            <input type="text" class="form-control" id="heading">
+            <input type="text" class="form-control" id="heading" asp-for="AddBlogPostRequest.Heading">
         </div>
         <div class="mb-3">
             <label for="pageTitle" class="form-label">Page Title</label>
-            <input type="text" class="form-control" id="pageTitle">
+            <input type="text" class="form-control" id="pageTitle" asp-for="AddBlogPostRequest.PageTitle">
         </div>
         <div class="mb-3">
             <label for="content" class="form-label">Content</label>
-            <textarea type="text" class="form-control" id="content"></textarea>
+            <textarea type="text" class="form-control" id="content" asp-for="AddBlogPostRequest.Content"></textarea>
         </div>
         <div class="mb-3">
             <label for="shortDescription" class="form-label">Short Description</label>
-            <input type="text" class="form-control" id="shortDescription">
+            <input type="text" class="form-control" id="shortDescription" asp-for="AddBlogPostRequest.ShortDescription">
         </div>
         <div class="mb-3">
             <label for="featuredImageUrl" class="form-label">Featured Image Url</label>
-            <input type="text" class="form-control" id="featuredImageUrl">
+            <input type="text" class="form-control" id="featuredImageUrl" asp-for="AddBlogPostRequest.FeaturedImageUrl">
         </div>
         <div class="mb-3">
             <label for="urlHandle" class="form-label">Url Handle</label>
-            <input type="text" class="form-control" id="urlHandle">
+            <input type="text" class="form-control" id="urlHandle" asp-for="AddBlogPostRequest.UrlHandle">
         </div>
         <div class="mb-3">
             <label for="publishedDate" class="form-label">Published Date</label>
-            <input type="date" class="form-control" id="publishedDate">
+            <input type="date" class="form-control" id="publishedDate" asp-for="AddBlogPostRequest.PublishedDate">
         </div>
         <div class="mb-3">
             <label for="author" class="form-label">Author</label>
-            <input type="date" class="form-control" id="author">
+            <input type="date" class="form-control" id="author" asp-for="AddBlogPostRequest.Author">
         </div>
         <div class="form-check">
             <input type="checkbox" class="form-check-input" id="isVisible">
-            <label for="isVisible" class="form-check-label">Is Visible</label>
+            <label for="isVisible" class="form-check-label" asp-for="AddBlogPostRequest.Visible">Is Visible</label>
         </div>
         <button type="submit" class="btn btn-dark">Submit</button>
     </form>
