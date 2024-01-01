@@ -20,7 +20,7 @@ namespace ASP.NET_Core_Razor_Page.Pages.Admin.Blogs
         public void OnGet()
         {
         }
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost()
         {
             var blogPost = new BlogPost
             {
@@ -34,8 +34,8 @@ namespace ASP.NET_Core_Razor_Page.Pages.Admin.Blogs
                 Author = AddBlogPostRequest.Author,
                 Visible = AddBlogPostRequest.Visible
             };
-            aspNetCoreRazorPagesDbContext.BlogPosts.Add(blogPost);
-            aspNetCoreRazorPagesDbContext.SaveChanges();
+            await aspNetCoreRazorPagesDbContext.BlogPosts.AddAsync(blogPost);
+            await aspNetCoreRazorPagesDbContext.SaveChangesAsync();
 
             return RedirectToPage("/admin/blogs/list");
         }

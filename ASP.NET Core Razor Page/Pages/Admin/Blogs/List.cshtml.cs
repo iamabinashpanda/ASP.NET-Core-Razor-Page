@@ -2,6 +2,7 @@ using ASP.NET_Core_MVC.Data;
 using ASP.NET_Core_MVC.Models.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASP.NET_Core_Razor_Page.Pages.Admin.Blogs
 {
@@ -16,9 +17,9 @@ namespace ASP.NET_Core_Razor_Page.Pages.Admin.Blogs
             this.aspNetCoreRazorPagesDbContext = aspNetCoreRazorPagesDbContext;
         }
 
-        public void OnGet()
+        public async Task OnGet()
         {
-            BlogPosts = aspNetCoreRazorPagesDbContext.BlogPosts.ToList();
+            BlogPosts = await aspNetCoreRazorPagesDbContext.BlogPosts.ToListAsync();
         }
     }
 }

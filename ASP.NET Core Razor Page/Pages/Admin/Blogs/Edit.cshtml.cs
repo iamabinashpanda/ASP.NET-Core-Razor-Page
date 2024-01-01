@@ -3,6 +3,7 @@ using ASP.NET_Core_MVC.Models.Domain;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASP.NET_Core_Razor_Page.Pages.Admin.Blogs
 {
@@ -17,14 +18,14 @@ namespace ASP.NET_Core_Razor_Page.Pages.Admin.Blogs
             this.aspNetCoreRazorPagesDbContext = aspNetCoreRazorPagesDbContext;
         }
 
-        public void OnGet(Guid id)
+        public async Task OnGet(Guid id)
         {
-            BlogPost = aspNetCoreRazorPagesDbContext.BlogPosts.FirstOrDefault(x => x.Id == id);
+            BlogPost = await aspNetCoreRazorPagesDbContext.BlogPosts.FirstOrDefaultAsync(x => x.Id == id);
             
         }
-        public IActionResult OnPostEdit(Guid id)
+        public async Task<IActionResult> OnPostEdit(Guid id)
         {
-            var existingBlogPost = aspNetCoreRazorPagesDbContext.BlogPosts.FirstOrDefault(x => x.Id == id);
+            var existingBlogPost = await aspNetCoreRazorPagesDbContext.BlogPosts.FirstOrDefaultAsync(x => x.Id == id);
             if(existingBlogPost != null)
             {
                 existingBlogPost.Heading = BlogPost.Heading;
@@ -38,17 +39,17 @@ namespace ASP.NET_Core_Razor_Page.Pages.Admin.Blogs
                 existingBlogPost.Visible = BlogPost.Visible;
 
             }
-            aspNetCoreRazorPagesDbContext.SaveChanges();
+            await aspNetCoreRazorPagesDbContext.SaveChangesAsync();
             return RedirectToPage("/admin/blogs/list");
         }
 
-        public IActionResult OnPostDelete(Guid id)
+        public async Task<IActionResult> OnPostDelete(Guid id)
         {
             var existingBlogPost = aspNetCoreRazorPagesDbContext.BlogPosts.FirstOrDefault(x => x.Id == id);
             if( existingBlogPost != null)
             {
                 aspNetCoreRazorPagesDbContext.Remove(existingBlogPost);
-                aspNetCoreRazorPagesDbContext.SaveChanges();
+                await aspNetCoreRazorPagesDbContext.SaveChangesAsync();
             }
             return RedirectToPage("/Admin/Blogs/List");
         }
