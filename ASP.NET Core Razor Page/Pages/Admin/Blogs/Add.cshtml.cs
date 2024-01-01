@@ -20,7 +20,7 @@ namespace ASP.NET_Core_Razor_Page.Pages.Admin.Blogs
         public void OnGet()
         {
         }
-        public void OnPost()
+        public IActionResult OnPost()
         {
             var blogPost = new BlogPost
             {
@@ -36,6 +36,8 @@ namespace ASP.NET_Core_Razor_Page.Pages.Admin.Blogs
             };
             aspNetCoreRazorPagesDbContext.BlogPosts.Add(blogPost);
             aspNetCoreRazorPagesDbContext.SaveChanges();
+
+            return RedirectToPage("/admin/blogs/list");
         }
     }
 }
