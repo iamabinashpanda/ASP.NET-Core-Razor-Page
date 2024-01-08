@@ -1,6 +1,7 @@
 using ASP.NET_Core_MVC.Data;
 using ASP.NET_Core_MVC.Models.Domain;
 using ASP.NET_Core_Razor_Page.Model.ViewModel;
+using ASP.NET_Core_Razor_Page.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -8,11 +9,11 @@ namespace ASP.NET_Core_Razor_Page.Pages.Admin.Blogs
 {
     public class AddModel : PageModel
     {
-        private readonly AspNetCoreRazorPagesDbContext aspNetCoreRazorPagesDbContext;
+        private readonly IBlogPostRepository blogPostRepository;
 
-        public AddModel(AspNetCoreRazorPagesDbContext aspNetCoreRazorPagesDbContext)
+        public AddModel(IBlogPostRepository blogPostRepository)
         {
-            this.aspNetCoreRazorPagesDbContext = aspNetCoreRazorPagesDbContext;
+            this.blogPostRepository = blogPostRepository;
         }
 
         [BindProperty]
@@ -34,8 +35,7 @@ namespace ASP.NET_Core_Razor_Page.Pages.Admin.Blogs
                 Author = AddBlogPostRequest.Author,
                 Visible = AddBlogPostRequest.Visible
             };
-            await aspNetCoreRazorPagesDbContext.BlogPosts.AddAsync(blogPost);
-            await aspNetCoreRazorPagesDbContext.SaveChangesAsync();
+            await blogPostRepository.AddAsync(blogPost);
 
             return RedirectToPage("/admin/blogs/list");
         }
