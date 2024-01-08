@@ -36,7 +36,7 @@ namespace ASP.NET_Core_Razor_Page.Pages.Admin.Blogs
                 Visible = AddBlogPostRequest.Visible
             };
             await blogPostRepository.AddAsync(blogPost);
-
+            TempData["MessageDescription"] = "Record was succesfully added!";
             return RedirectToPage("/admin/blogs/list");
         }
     }

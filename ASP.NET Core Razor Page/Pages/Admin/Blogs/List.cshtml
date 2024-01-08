@@ -7,6 +7,18 @@
         <h1>Blog Posts</h1>
     </div>
 </div>
+@{
+    var messageDescription = (string)ViewData["MessageDescription"];
+}
+@{
+    if (!string.IsNullOrWhiteSpace(messageDescription))
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @Html.Raw(messageDescription)
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+}
 <div class="container">
     <table class="table">
         <thead>

@@ -20,6 +20,12 @@ namespace ASP.NET_Core_Razor_Page.Pages.Admin.Blogs
 
         public async Task OnGet()
         {
+            var messageDescription = (string)TempData["MessageDescription"];
+            if (!string.IsNullOrEmpty(messageDescription))
+            {
+                ViewData["MessageDescription"]= messageDescription;
+            }
+            
             BlogPosts = (await blogPostRepository.GetAllAsync())?.ToList();
         }
     }

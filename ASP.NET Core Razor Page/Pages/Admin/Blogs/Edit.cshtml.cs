@@ -25,10 +25,12 @@ namespace ASP.NET_Core_Razor_Page.Pages.Admin.Blogs
             BlogPost = await blogPostRepository.GetAsync(id);
             
         }
-        public async Task<IActionResult> OnPostEdit()
+        public async Task<IActionResult> OnPostEdit(Guid id)
         {
             await blogPostRepository.UpdateAsync(BlogPost);
-            return RedirectToPage("/admin/blogs/list");
+            //return RedirectToPage("/admin/blogs/list");
+            ViewData["MessageDescription"] = "Save was succesfully saved.";
+            return Page();
         }
 
         public async Task<IActionResult> OnPostDelete()
