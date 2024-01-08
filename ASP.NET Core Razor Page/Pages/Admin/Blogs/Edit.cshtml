@@ -8,18 +8,8 @@
         <h1>Edit Blog Posts</h1>
     </div>
 </div>
-@{
-    var messageDecription = (string)ViewData["MessageDescription"];
-}
-@{
-    if(!string.IsNullOrWhiteSpace(messageDecription))
-    {
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            @Html.Raw(messageDecription)
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    }
-}
+<partial name="_Notification" />
+
 <div class="container">
     <form method="post">
         <div class="mb-3">

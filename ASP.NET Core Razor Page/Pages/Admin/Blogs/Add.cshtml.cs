@@ -4,6 +4,7 @@ using ASP.NET_Core_Razor_Page.Model.ViewModel;
 using ASP.NET_Core_Razor_Page.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Text.Json;
 
 namespace ASP.NET_Core_Razor_Page.Pages.Admin.Blogs
 {
@@ -36,7 +37,11 @@ namespace ASP.NET_Core_Razor_Page.Pages.Admin.Blogs
                 Visible = AddBlogPostRequest.Visible
             };
             await blogPostRepository.AddAsync(blogPost);
-            TempData["MessageDescription"] = "Record was succesfully added!";
+            var notification = new Notification
+            {
+                Message = "Record was succesfully added!", Type = Enums.NotificationType.Success
+            };
+            TempData["MessageDescription"] = JsonSerializer.Serialize(notification);
             return RedirectToPage("/admin/blogs/list");
         }
     }

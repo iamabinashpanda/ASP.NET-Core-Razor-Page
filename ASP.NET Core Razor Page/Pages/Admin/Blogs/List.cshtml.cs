@@ -1,9 +1,11 @@
 using ASP.NET_Core_MVC.Data;
 using ASP.NET_Core_MVC.Models.Domain;
+using ASP.NET_Core_Razor_Page.Model.ViewModel;
 using ASP.NET_Core_Razor_Page.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace ASP.NET_Core_Razor_Page.Pages.Admin.Blogs
 {
@@ -20,10 +22,10 @@ namespace ASP.NET_Core_Razor_Page.Pages.Admin.Blogs
 
         public async Task OnGet()
         {
-            var messageDescription = (string)TempData["MessageDescription"];
-            if (!string.IsNullOrEmpty(messageDescription))
+            var notificationJson = TempData["MessageDescription"];
+            if(notificationJson != null)
             {
-                ViewData["MessageDescription"]= messageDescription;
+                ViewData["Notification"] = JsonSerializer.Deserialize<Notification>(notificationJson.ToString());
             }
             
             BlogPosts = (await blogPostRepository.GetAllAsync())?.ToList();

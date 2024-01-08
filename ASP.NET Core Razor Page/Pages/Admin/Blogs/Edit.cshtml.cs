@@ -1,10 +1,12 @@
 using ASP.NET_Core_MVC.Data;
 using ASP.NET_Core_MVC.Models.Domain;
+using ASP.NET_Core_Razor_Page.Model.ViewModel;
 using ASP.NET_Core_Razor_Page.Repositories;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace ASP.NET_Core_Razor_Page.Pages.Admin.Blogs
 {
@@ -27,9 +29,26 @@ namespace ASP.NET_Core_Razor_Page.Pages.Admin.Blogs
         }
         public async Task<IActionResult> OnPostEdit(Guid id)
         {
-            await blogPostRepository.UpdateAsync(BlogPost);
-            //return RedirectToPage("/admin/blogs/list");
-            ViewData["MessageDescription"] = "Save was succesfully saved.";
+            try
+            {
+                //throw new Exception();
+                await blogPostRepository.UpdateAsync(BlogPost);
+                ViewData["Notification"] = new Notification
+                {
+                    Message = "Save was succesfully Updated.",
+                    Type = Enums.NotificationType.Success
+                };
+                
+            }
+            catch (Exception ex)
+            {
+
+                ViewData["Notification"] = new Notification
+                {
+                    Message = ex.Message,
+                    Type = Enums.NotificationType.Error
+                };
+            }
             return Page();
         }
 
@@ -37,6 +56,12 @@ namespace ASP.NET_Core_Razor_Page.Pages.Admin.Blogs
         {
             if(await blogPostRepository.DeleteAsync(BlogPost.Id))
             {
+                var notification = new Notification
+                {
+                    Message = "Blog was succesfully Deleted Successfully !",
+                    Type = Enums.NotificationType.Success
+                };
+                TempData["MessageDescription"] = JsonSerializer.Serialize(notification);
                 return RedirectToPage("/Admin/Blogs/List");
             }
             return Page();
